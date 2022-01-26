@@ -23,7 +23,7 @@ steps:
   displayName: 'npm install and build'
 - task: AzureStaticWebApp@0
   inputs:
-    app_location: '/'
+    app_location: 'src'
     output_location: 'dist/movieshopaps'
     azure_static_web_apps_api_token: $(deployment_token)
 
