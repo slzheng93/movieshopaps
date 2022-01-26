@@ -1,4 +1,4 @@
 export const environment = {
-  production: true
-  //apiBaseUrl:'https://movieshopapi.azure.net/api/'
+  production: true,
+  apiBaseUrl:'https://movieshopapizheng.azurewebsites.net/api/'
 };
