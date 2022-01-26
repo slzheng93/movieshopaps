@@ -3,25 +3,159 @@
     <div class="row position-relative" style="background:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url({{movie.backdropUrl}}); background-size: cover;">
         <div class="col-4 mb-4 p-3 mb-2 mt-4 bg-gradient-primary text-white"><img src="{{movie.posterUrl}}"/></div>
         <!-- Title Information and Detail Information -->
-    <div class="col-6 p-3 mb-2 bg-gradient-primary text-white">
-        <h1>{{movie.title}}</h1>
-        <div>
-            <span class="text-white-50">{{movie.tagline}}</span>
+        <div class="col-6 p-3 mb-2 bg-gradient-primary text-white">
+            <h1>{{movie.title}}</h1>
             <div>
-                <span class="text-white-50">{{movie.runTime}} | {{movie.releaseDate}}</span>
+                <span class="text-white-50">{{movie.tagline}}</span>
+                <div>
+                    <span class="text-white-50">{{movie.runTime}} | {{movie.releaseDate}}</span>
+                </div>
+                <div>
+                    <span class="badge bg-success m-1" *ngFor="let genre of movie.genres"> {{genre.name}} </span>
+                </div>
             </div>
-            <div>
-                <span class="badge bg-success m-1" *ngFor="let genre of movie.genres"> {{genre.name}} </span>
-            </div>
-        </div>
-        <div>
-            <span class="badge bg-secondary m-1">
-                {{movie.rating}}
-            </span>
-        </div>
-        <p class="text-white-200">{{movie.overview}}</p>
-    </div>
-    </div>
-    <!-- Title Information and Detail Information -->
-</div>
 
+            <div *ngIf="movie.rating > 8">
+                    <span class="badge bg-success m-1"  > {{movie.rating}} </span>
+            </div>
+            <div *ngIf="movie.rating > 7 && movie.rating < 8">
+                <span class="badge bg-warning m-1" > {{movie.rating}} </span>
+            </div>
+            <div *ngIf="movie.rating < 7">
+                <span class="badge bg-danger m-1" > {{movie.rating}} </span>
+            </div>
+
+            <p class="text-white-200">{{movie.overview}}</p>
+        </div>
+        <div class="col-2 p-3 mb-2 bg-gradient-primary text-white">
+            <!-- Review Button -->
+            <div class="btn float-end">
+                <button type="button" class="btn btn-outline-light mb-4 mt-4 btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#ReviewModal">Review</button>
+                <!-- Favorite/UnFavorite Button -->      
+            </div>
+            <div class="btn float-end">
+                <form asp-controller="User" asp-action="Favorite" method="post">
+                    <input name="UserId" value="@_currentUser.UserId"  type="hidden"  />
+                     <input name="MovieId" value="@Model.Id"  type="hidden"  />
+                    <button type="submit" class="btn btn-outline-light mb-4 mt-4 btn-lg btn-block">Click To Favorited</button>
+                </form>
+                <form asp-controller="User" asp-action="UnFavorite" method="post">
+                    <input name="UserId" value="@_currentUser.UserId"  type="hidden"  />
+                     <input name="MovieId" value="@Model.Id"  type="hidden"  />
+                    <button type="submit" class="btn btn-outline-light mb-4 mt-4 btn-lg btn-block">Click To UnFaforite</button>
+                </form>
+            </div>
+            <!-- Price Button -->
+            <div class="btn float-end">
+                <button type="button" class="btn btn-outline-light mb-4 mt-4 btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#PurchaseModal">Buy ${{movie.price}}</button>
+            </div>
+
+            <!--Review Modal Confirguration-->
+            <div class="modal fade" id="ReviewModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-sm-center">
+                            <h5 class="modal-title text-black " id="staticBackdropLabel">Leave a Review for {{movie.title}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-black">
+                            <form asp-controller="User" asp-action="ReviewMovie" method="post">
+                                <div class="custom-control custom-radio custom-control-inline  text-sm-center">
+                                    <input type="radio" name="Rating" value="1" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadioInline1">1-Star  </label>
+                                    <input type="radio" name="Rating" value="2" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadioInline2">2-Stars  </label>
+                                    <input type="radio" name="Rating" value="3" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadioInline2">3-Stars  </label>
+                                    <input type="radio" name="Rating" value="4" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadioInline2">4-Stars  </label>
+                                    <input type="radio" name="Rating" value="5" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadioInline2">5-Stars  </label>
+                                </div>
+                                    <input name="UserId" value="@_currentUser.UserId"  type="hidden"  />
+                                    <input name="MovieId" value="@Model.Id"  type="hidden"  />
+                                <div class="mb-3">
+                                    <label for="message-text" class="col-form-label">Feedback:</label>
+                                    <textarea name="ReviewText" class="form-control" id="message-text"></textarea>
+                                </div>
+                                <div class="modal-footer text-sm-center">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Leave a Review</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Price Modal Confirguration-->
+            <div class="modal fade" id="PurchaseModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-black text-sm-center" id="staticBackdropLabel">Purchase Movie: @Model.Title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-black text-sm-center">
+                        !!!Thank You For Purchasing The Movie!!!
+                    </div>
+                        <div class="modal-footer">
+                            <form asp-controller="User" asp-action="BuyAMovie" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <input name="UserId" value="@_currentUser.UserId"  type="hidden"  />
+                                <input name="MovieId" value="@Model.Id"  type="hidden"  />
+                            </div>
+                            <div class="text-sm-center">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <input type="submit"  class="btn btn-primary" value="Purchase Movie" />
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+    <div class="row mt-4">
+        <!-- Movie Facts and Trailers -->
+        <div class="col-3 mb-4">
+            <h4>MOVIE FACTS</h4>
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item">Release Date {{movie.releaseDate}}</li>
+                <li class="list-group-item">Run Time {{movie.runTime}} m</li>
+                <li class="list-group-item">Box Office {{movie.revenue}}</li>
+                <li class="list-group-item">Budget {{movie.budget}}</li>
+             </ul>
+             <div>
+                 <h4>TRAILERS</h4>
+                 <ul class="list-group list-group-flush" *ngFor="let trailer of movie.trailers; let i = index">
+                    <a href="{{trailer.trailerUrl}}" class="list-group-item">{{movie.title}}: Trailer {{i + 1}}</a>
+                 </ul>
+             </div>
+        </div>
+        <!-- Cast Informations -->
+        <div class="col-9">
+            <div class="row row-col-1">
+                <h4>CASTS</h4>
+            </div>
+            <div class="row" *ngFor="let cast of movie.casts">
+                <div class="col-3">
+                    <ul class="list-group list-group-flush list-group-horizontal">
+                        <li class="list-group-item"><img src={{cast.profilePath}} style="width:25%" class="rounded-circle img-fluid img-thumbnail"/></li>
+                    </ul>
+                </div>
+                <div class="col-3">
+                    <ul class="list-group list-group-flush list-group-horizontal">
+                        <li class="list-group-item">{{cast.name}}</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <ul class="list-group list-group-flush list-group-horizontal">
+                        <li class="list-group-item">{{cast.character}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
