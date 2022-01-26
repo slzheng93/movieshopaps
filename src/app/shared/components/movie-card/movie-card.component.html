@@ -1,0 +1,8 @@
+<div class="card mb-4">
+    <!-- http://localhost:4200/movies/22  MovieDetailsComponent => call Movie DetailsService => Movie details API
+         routerlink-->
+
+         <a [routerLink]="['/movies', movieCard.id]">
+            <img src="{{movieCard.posterUrl}}" class="img-fluid rounded shadow" alt="{{movieCard.title}}"/>
+         </a>
+</div>

@@ -1,0 +1,27 @@
+<div class="container-fluid" style="border-inline-width: 5;">
+    <!-- Setting Poster and Background Image -->
+    <div class="row position-relative" style="background:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url({{movie.backdropUrl}}); background-size: cover;">
+        <div class="col-4 mb-4 p-3 mb-2 mt-4 bg-gradient-primary text-white"><img src="{{movie.posterUrl}}"/></div>
+        <!-- Title Information and Detail Information -->
+    <div class="col-6 p-3 mb-2 bg-gradient-primary text-white">
+        <h1>{{movie.title}}</h1>
+        <div>
+            <span class="text-white-50">{{movie.tagline}}</span>
+            <div>
+                <span class="text-white-50">{{movie.runTime}} | {{movie.releaseDate}}</span>
+            </div>
+            <div>
+                <span class="badge bg-success m-1" *ngFor="let genre of movie.genres"> {{genre.name}} </span>
+            </div>
+        </div>
+        <div>
+            <span class="badge bg-secondary m-1">
+                {{movie.rating}}
+            </span>
+        </div>
+        <p class="text-white-200">{{movie.overview}}</p>
+    </div>
+    </div>
+    <!-- Title Information and Detail Information -->
+</div>
+
