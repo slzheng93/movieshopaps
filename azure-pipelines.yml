@@ -8,7 +8,7 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
-  name: default:agents2
+  name: default:agent2
 
 steps:
 - task: NodeTool@0
