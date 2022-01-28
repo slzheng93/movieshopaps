@@ -8,7 +8,7 @@
             <div>
                 <span class="text-white-50">{{movie.tagline}}</span>
                 <div>
-                    <span class="text-white-50">{{movie.runTime}} | {{movie.releaseDate}}</span>
+                    <span class="text-white-50">{{movie.runTime}} | {{movie.releaseDate|date:'yyyy'}}</span>
                 </div>
                 <div>
                     <span class="badge bg-success m-1" *ngFor="let genre of movie.genres"> {{genre.name}} </span>
@@ -122,11 +122,13 @@
         <div class="col-3 mb-4">
             <h4>MOVIE FACTS</h4>
             <ul class="list-group list-group-flush mb-4">
-                <li class="list-group-item">Release Date {{movie.releaseDate}}</li>
+                <li class="list-group-item">Release Date {{movie.releaseDate|date:'MM/dd/yy'}}</li>
                 <li class="list-group-item">Run Time {{movie.runTime}} m</li>
-                <li class="list-group-item">Box Office {{movie.revenue}}</li>
-                <li class="list-group-item">Budget {{movie.budget}}</li>
+                <li class="list-group-item">Box Office {{movie.revenue| currency:'USD'}}</li>
+                <li class="list-group-item">Budget {{movie.budget | currency:'USD'}}</li>
              </ul>
+
+             <!-- {{ amount | currency:'EUR' }} -->
              <div>
                  <h4>TRAILERS</h4>
                  <ul class="list-group list-group-flush" *ngFor="let trailer of movie.trailers; let i = index">
@@ -135,25 +137,28 @@
              </div>
         </div>
         <!-- Cast Informations -->
-        <div class="col-9">
-            <div class="row row-col-1">
-                <h4>CASTS</h4>
-            </div>
-            <div class="row" *ngFor="let cast of movie.casts">
-                <div class="col-3">
+        <div class="col-9 ">
+                <h4 style="text-align:center">CAST INFORMATION</h4>
+            
+            <div class="row align-items-center justify-content-center" *ngFor="let cast of movie.casts">
+                <div class="col-3 justify-content-between">
                     <ul class="list-group list-group-flush list-group-horizontal">
                         <li class="list-group-item"><img src={{cast.profilePath}} style="width:25%" class="rounded-circle img-fluid img-thumbnail"/></li>
                     </ul>
                 </div>
-                <div class="col-3">
-                    <ul class="list-group list-group-flush list-group-horizontal">
-                        <li class="list-group-item">{{cast.name}}</li>
-                    </ul>
+                <div class="col-3 ">
+                    <a [routerLink]="['/cast', cast.id]" style="text-decoration: none;">
+                        <ul class="list-group list-group-flush list-group-horizontal ">
+                                <li class="list-group-item ">{{cast.name}}</li>   
+                        </ul>
+                    </a>
                 </div>
                 <div class="col-md-3">
-                    <ul class="list-group list-group-flush list-group-horizontal">
-                        <li class="list-group-item">{{cast.character}}</li>
-                    </ul>
+                    <a [routerLink]="['/cast', cast.id]" style="text-decoration: none;">
+                        <ul class="list-group list-group-flush list-group-horizontal">
+                            <li class="list-group-item">{{cast.character}}</li>
+                        </ul>
+                    </a>
                 </div>
             </div>
         </div>

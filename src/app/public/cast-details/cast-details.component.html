@@ -1,1 +1,36 @@
-<p>cast-details works!</p>
+<h1 class="text-center">Cast Detail</h1>
+
+<div class="container">
+    <!-- First Row(Picture of the Actor) Centered -->
+    <div class="row">
+        <div class="col-12">
+            <ul class="list-group list-group-flush align-items-center">
+                <li class="list-group-item">
+                    <img src={{cast.profilePath}}/>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Second Row -->
+    <div class="row">
+        <div class="col-12" >
+            <ul class="list-group list-group-flush align-items-center">
+                <li class="list-group-item">Cast Name: {{cast.name}}</li>
+                <li class="list-group-item" *ngIf="cast.gender==='2'">Gender: Male</li>
+                <li class="list-group-item" *ngIf="cast.gender==='1'">Gender: Female</li>
+                <li class="list-group-item">Cast Tmdb Url: <a style="text-decoration: none;" href={{cast.tmdbUrl}}> {{cast.tmdbUrl}}</a></li>
+
+                <h2>Related Movie For {{cast.name}}</h2> 
+                <div class="rounded">
+                    <div class="container-fluid bg-light">
+                        <div class="row">
+                            <div class="col-6 col-lg-3 col-sm-4 col-xl-2" *ngFor="let movieCard of cast.movieTitle">
+                                <app-movie-card [movieCard]="movieCard"></app-movie-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+</div>

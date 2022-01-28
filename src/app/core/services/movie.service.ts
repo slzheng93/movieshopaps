@@ -6,6 +6,7 @@ import { Movie } from 'src/app/shared/models/Movie';
 import { MovieCard } from 'src/app/shared/models/MovieCard';
 import { Cast } from 'src/app/shared/models/Cast';
 import { Genre } from 'src/app/shared/models/Genre';
+import { CastDetail } from 'src/app/shared/models/CastDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -28,12 +29,12 @@ export class MovieService {
     return this.http.get<Movie>(`${environment.apiBaseUrl}movies/${id}`);
 
   }
-  getCastDeatil(id: number): Observable<Cast>{
+  getCastDeatil(id: number): Observable<CastDetail>{
     // return cast detail base on the cast id
-    return this.http.get<Cast>(`${environment.apiBaseUrl}Cast/${id}`);
+    return this.http.get<CastDetail>(`${environment.apiBaseUrl}Cast/${id}`);
   }
-  getMovieByGenre(id: number): Observable<Genre>{
+  getMovieByGenre(id: number): Observable<MovieCard[]>{
     // return movies base on their genre
-    return this.http.get<Genre>(`${environment.apiBaseUrl}Movies/genre/${id}`);
+    return this.http.get<MovieCard[]>(`${environment.apiBaseUrl}Movies/genre/${id}`);
   }
 }

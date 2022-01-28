@@ -9,6 +9,8 @@ import { MovieDetailsComponent } from './public/movie-details/movie-details.comp
 import { CastDetailsComponent } from './public/cast-details/cast-details.component';
 import { MovieCardComponent } from './shared/components/movie-card/movie-card.component';
 import { HeaderComponent } from './core/layout/header/header.component';
+import { GenresComponent } from './core/layout/genres/genres.component';
+import { GenreMoviesComponent } from './public/genre-movies/genre-movies.component';
 
 
 @NgModule({
@@ -19,6 +21,8 @@ import { HeaderComponent } from './core/layout/header/header.component';
     CastDetailsComponent,
     MovieCardComponent,
     HeaderComponent,
+    GenresComponent,
+    GenreMoviesComponent,
   ],
   imports: [
     BrowserModule,
