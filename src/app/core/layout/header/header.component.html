@@ -19,6 +19,16 @@
                         Genres
                     </button>
 
+                    <div class="text-end"  *ngIf="!isLoginSuccess" >
+                        <a class=" btn btn-primary me-2" [routerLink]="['account/login']" > Login </a>
+                        <a class=" btn btn-primary me-2" [routerLink]="['account/register']" > Register </a>
+                
+                    </div>
+
+                    <div class="" *ngIf="isLoginSuccess" >
+                        <span  > {{ user.given_name}}  </span> 
+                        <span  > {{ user.family_name}}  </span> 
+                    </div>
                     
                     <!-- <ul class="dropdown-menu" aria-labelledby="defaultDropdown" style="font-size:0.8em">
                         <li class="dropdown-item"><app-genres></app-genres></li>

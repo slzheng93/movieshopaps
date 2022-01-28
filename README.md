@@ -101,7 +101,24 @@ http://localhost:4200/account/register
 
 
 
-1. Login
-2. Register
+### Angular Forms
 
-we re going to crearte a Feature Module called account Module and it will have its own routing module
+Therea are 2 approaches to create forms
+1. Template-driven approach 
+    1. Use if the form is simple and not much complex validation logic => Login
+2. Reactive Forms approach
+    1. Use when your form is big and has number of complex validation logic and has many controls in forms
+    2. Register, CreateMovie
+
+To use forms we Angualr provies few base classes
+
+FormControl tracks the value and validation status of an individual form control.
+FormGroup tracks the same values and status for a collection of form controls.
+
+We use above classes directly in Reactive approach
+But we use a directive called ngModel which behind the scenes uses FormControl
+
+#### Template
+1. Create the HTML form
+2. Import the Angular FormsModule in your modules
+3. Create the object in component that is used with ngModel directive in input elements in View, make sure every element uses name attibute for this things to work
