@@ -11,6 +11,12 @@ const routes: Routes = [
   { path: 'movies/:id', component: MovieDetailsComponent },
   { path: 'cast/:id', component: CastDetailsComponent },
   { path: 'movies/genre/:id', component: GenreMoviesComponent},
+
+// lazily load the feature module
+{
+  path:'account', loadChildren: () => import('./account/account.module').then(mod => mod.AccountModule)
+}
+
 ];
 
 @NgModule({

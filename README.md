@@ -82,3 +82,26 @@ Server (API) => localhost: 72312
 
 We need to enable CORS at the server to that it will add a special headers in HTTP that will tell browser to trust this connection(API)
 
+
+### JWT Authentication in Angular
+// Load these only when use naviagtes these URL
+http://localhost:4200/account/login
+http://localhost:4200/account/register
+
+
+#### Creating feature modules
+1. Create a specific module and specific route for that module (ng g m account/account --routing --flat)
+2. Create a home component for the feature module and have a router oulet only gor componenst and routes for that  module (ng g c account/account  --flat --skipTests=true)
+4. Create feature components - login and register - which will be automaticaly registered in feature module
+5. Specify the child routes for this feature module
+6. If you want the module to be lazily load then we need to use lazy load syntax in app module
+ Decide when you wanna lazily load the module
+    1. When user navigates to a specicif URL http://localhost:4200/account/
+    2. Load only when user is actually authenticated, UserModule
+
+
+
+1. Login
+2. Register
+
+we re going to crearte a Feature Module called account Module and it will have its own routing module
